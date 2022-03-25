@@ -29,16 +29,16 @@ class S3
   def self.client
     @client ||= Aws::S3::Client.new(
       region: 'ap-northeast-1',
-      credentials: Aws::SSOCredentials.new(**fetch_aws_env)
+      credentials: sso_credentials
     )
   end
 
-  def self.fetch_aws_env
-    {
+  def self.sso_credentials
+    @sso_credentials = Aws::SSOCredentials.new(
       sso_account_id: ENV['SANDBOX_KYOTO_ACCOUNT_ID'],
       sso_role_name: ENV['SANDBOX_KYOTO_ROLE'],
       sso_region: 'ap-northeast-1',
       sso_start_url: ENV['MF_SSO_START_URL']
-    }
+    )
   end
 end
