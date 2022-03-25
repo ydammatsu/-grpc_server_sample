@@ -1,6 +1,6 @@
 require 'aws-sdk-s3'
 
-class S3Handler
+class S3
   BUCKET_NAME = 'yurusuta-sample1'
 
   def self.upload(file_name, file_blob)

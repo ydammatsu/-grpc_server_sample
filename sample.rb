@@ -1,25 +1,24 @@
-require 'aws-sdk-s3'
+require_relative './lib/s3'
 
-def bucket_exists?(s3_client, bucket_name)
-  response = s3_client.list_buckets
-  response.buckets.each do |bucket|
-    return true if bucket.name == bucket_name
-  end
-  return false
-rescue StandardError => e
-  puts "Error listing buckets: #{e.message}"
-  return false
+method = ARGV[0]
+file_name_or_path = ARGV[1]
+
+def upload(file_path)
+  file      = File.open(file_name)
+  file_name = File.basename(file.path)
+  file_blob = file.read
+  S3.upload(file_name, file_blob)
+
+  puts "Upload 完了"
 end
 
-s3_client = Aws::S3::Client.new(
-  region: 'ap-northeast-1',
-  credentials: Aws::SSOCredentials.new(
-    sso_account_id: '348858295373',
-    sso_role_name: 'AdministratorAccess',
-    sso_region: 'ap-northeast-1',
-    sso_start_url: 'https://d-95671c748d.awsapps.com/start'
-  )
-)
-bucket_name = 'yurusuta-sample1'
+def download(file_name)
+  obj = S3.download(file_name)
+  File.open("#{Dir.home}/#{file_name}", "w") do |f|
+    f.write(obj.body.read)
+  end
 
-puts bucket_exists?(s3_client, bucket_name) ? 'ありました' : 'ありません'
+  puts "Download 完了"
+end
+
+send(method, file_name_or_path)
