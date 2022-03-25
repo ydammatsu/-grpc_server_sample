@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# このクラスを GRPC::RpcServer.new に渡す。
+# このクラス内に定義するメソッドは proto に定義した rpc と対応するように書く
 class FileStorageServer < Sample::FileStorage::Service
   def upload(request, _unused_call)
     file_name = request.file_name
@@ -22,7 +24,8 @@ class FileStorageServer < Sample::FileStorage::Service
 
     response = Sample::FileStorage::DownloadResponse.new
 
-    if file_blob = S3.download(file_name, file_blob)
+    file_blob = S3.download(file_name, file_blob)
+    if file_blob
       response.error = :NO_ERROR
       response.file_blob = file_blob
     else

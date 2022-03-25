@@ -2,6 +2,7 @@
 
 require 'aws-sdk-s3'
 
+# S3 との接続を行う
 class S3
   BUCKET_NAME = 'yurusuta-sample1'
 
@@ -28,12 +29,16 @@ class S3
   def self.client
     @client ||= Aws::S3::Client.new(
       region: 'ap-northeast-1',
-      credentials: Aws::SSOCredentials.new(
-        sso_account_id: '348858295373',
-        sso_role_name: 'AdministratorAccess',
-        sso_region: 'ap-northeast-1',
-        sso_start_url: 'https://d-95671c748d.awsapps.com/start'
-      )
+      credentials: Aws::SSOCredentials.new(**fetch_aws_env)
     )
+  end
+
+  def self.fetch_aws_env
+    {
+      sso_account_id: ENV['SANDBOX_KYOTO_ACCOUNT_ID'],
+      sso_role_name: ENV['SANDBOX_KYOTO_ROLE'],
+      sso_region: 'ap-northeast-1',
+      sso_start_url: ENV['MF_SSO_START_URL']
+    }
   end
 end
