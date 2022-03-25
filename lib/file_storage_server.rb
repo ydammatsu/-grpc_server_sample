@@ -1,7 +1,3 @@
-require 'datetime'
-require_relative 'pb/hoge_pb'
-require_relative 's3'
-
 class FileStorageServer < Sample::FileStorage::Service
   def upload(request, _unused_call)
     file_name = request.file_name
