@@ -17,7 +17,7 @@ class S3
 
   def self.download(file_name)
     obj = client.get_object(bucket: BUCKET_NAME, key: file_name)
-    obj
+    obj.body.read
   rescue Aws::Errors::ServiceError => e
     puts "Couldn't download file #{file_name} to #{BUCKET_NAME}. Here's why: #{e.message}"
     false
