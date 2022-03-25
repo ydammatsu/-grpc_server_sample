@@ -17,6 +17,13 @@ GEM
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.4.0)
       aws-eventstream (~> 1, >= 1.0.2)
+    google-protobuf (3.19.4-x86_64-darwin)
+    googleapis-common-protos-types (1.3.0)
+      google-protobuf (~> 3.14)
+    grpc (1.45.0-universal-darwin)
+      google-protobuf (~> 3.19)
+      googleapis-common-protos-types (~> 1.0)
+    grpc-tools (1.45.0)
     jmespath (1.6.1)
     rexml (3.2.5)
 
@@ -25,6 +32,8 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-s3
+  grpc
+  grpc-tools
   rexml
 
 BUNDLED WITH
