@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'grpc'
 require 'date'
-require_relative 'pb/sample_services_pb.rb'
+require_relative 'pb/sample_services_pb'
 require_relative 'lib/s3'
 require_relative 'lib/file_storage_server'
 

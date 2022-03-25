@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'aws-sdk-s3'
 
 class S3
@@ -22,8 +24,6 @@ class S3
     puts "Couldn't download file #{file_name} to #{BUCKET_NAME}. Here's why: #{e.message}"
     false
   end
-
-  private
 
   def self.client
     @client ||= Aws::S3::Client.new(

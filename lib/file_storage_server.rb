@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FileStorageServer < Sample::FileStorage::Service
   def upload(request, _unused_call)
     file_name = request.file_name
