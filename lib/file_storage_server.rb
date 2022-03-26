@@ -7,24 +7,23 @@ class FileStorageServer < Sample::FileStorage::Service
     file_name = request.file_name
     file_blob = request.file_blob
 
-    response = Sample::FileStorage::UploadResponse.new
+    response = Sample::UploadResponse.new
 
-    if S3.upload(file_name, file_blob)
-      response.error = :NO_ERROR
-      response.created_at = DateTime.now
-    else
-      response.error = :UNKNOWN_ERROR
-    end
+    response.error = if S3.upload(file_name, file_blob)
+                       :NO_ERROR
+                     else
+                       :UNKNOWN_ERROR
+                     end
 
     response
   end
 
-  def download(request)
+  def download(request, _unused_call)
     file_name = request.file_name
 
-    response = Sample::FileStorage::DownloadResponse.new
+    response = Sample::DownloadResponse.new
 
-    file_blob = S3.download(file_name, file_blob)
+    file_blob = S3.download(file_name)
     if file_blob
       response.error = :NO_ERROR
       response.file_blob = file_blob
