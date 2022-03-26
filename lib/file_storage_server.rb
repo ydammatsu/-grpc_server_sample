@@ -10,8 +10,10 @@ class FileStorageServer < Sample::FileStorage::Service
     response = Sample::UploadResponse.new
 
     response.error = if S3.upload(file_name, file_blob)
+                       puts "#{file_name} のアップロードに成功しました"
                        :NO_ERROR
                      else
+                        puts "#{file_name} のアップロードに失敗しました"
                        :UNKNOWN_ERROR
                      end
 
@@ -25,9 +27,11 @@ class FileStorageServer < Sample::FileStorage::Service
 
     file_blob = S3.download(file_name)
     if file_blob
+      puts "#{file_name} のダウンロードに成功しました"
       response.error = :NO_ERROR
       response.file_blob = file_blob
     else
+      puts "#{file_name} のダウンロードに失敗しました"
       response.error = :UNKNOWN_ERROR
     end
 
