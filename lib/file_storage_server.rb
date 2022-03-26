@@ -5,7 +5,7 @@
 class FileStorageServer < Sample::FileStorage::Service
   def upload(request, _unused_call)
     file_name = request.file_name
-    file_blob = request.file_blob
+    file_blob = Base64.decode64(request.file_blob)
 
     response = Sample::UploadResponse.new
 
@@ -29,7 +29,7 @@ class FileStorageServer < Sample::FileStorage::Service
     if file_blob
       puts "#{file_name} のダウンロードに成功しました"
       response.error = :NO_ERROR
-      response.file_blob = file_blob
+      response.file_blob = Base64.encode64(file_blob)
     else
       puts "#{file_name} のダウンロードに失敗しました"
       response.error = :UNKNOWN_ERROR

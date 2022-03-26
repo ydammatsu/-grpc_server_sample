@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'date'
+require 'base64'
 require './pb/sample_services_pb'
 require './lib/s3'
 require './lib/file_storage_server'
