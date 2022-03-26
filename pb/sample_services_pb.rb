@@ -5,7 +5,7 @@
 # 基本的に "proto3" を指定
 
 require 'grpc'
-require_relative 'sample_pb'
+require './pb/sample_pb'
 
 module Sample
   module FileStorage
