@@ -6,12 +6,18 @@
 # 各メソッドの戻り値は gRPC のレスポンスを返す
 class FileStorageServer < Sample::FileStorage::Service
   def upload(request, _unused_call)
+    # リクエストから値を取得
     file_name = request.file_name
     file_blob = Base64.decode64(request.file_blob)
 
+    # S3に画像をアップロード
+    upload_success? = S3.upload(file_name, file_blob)
+
+    # レスポンスを生成
     response = Sample::UploadResponse.new
 
-    response.error = if S3.upload(file_name, file_blob)
+    # レスポンスに値を詰めていく
+    response.error = if upload_success?
                        puts "#{file_name} のアップロードに成功しました"
                        :NO_ERROR
                      else
@@ -24,11 +30,16 @@ class FileStorageServer < Sample::FileStorage::Service
   end
 
   def download(request, _unused_call)
+    # リクエストから値を取得
     file_name = request.file_name
 
+    # S3からファイルをダウンロード
+    file_blob = S3.download(file_name)
+
+    # レスポンスを生成
     response = Sample::DownloadResponse.new
 
-    file_blob = S3.download(file_name)
+    # レスポンスに値を詰めていく
     if file_blob
       puts "#{file_name} のダウンロードに成功しました"
       response.error = :NO_ERROR
