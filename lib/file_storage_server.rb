@@ -2,6 +2,8 @@
 
 # このクラスを GRPC::RpcServer.new に渡す。
 # このクラス内に定義するメソッドは proto に定義した rpc と対応するように書く
+# 第一引数に gRPC からのリクエストが入ってくる
+# 各メソッドの戻り値は gRPC のレスポンスを返す
 class FileStorageServer < Sample::FileStorage::Service
   def upload(request, _unused_call)
     file_name = request.file_name
