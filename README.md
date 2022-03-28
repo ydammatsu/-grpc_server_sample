@@ -21,7 +21,7 @@ bundle exec ruby bin/server.rb
     ├── sample_pb.rb
     └── sample_services_pb.rb
 ```
-# .proto からコードを自動生成するコマンド
+## .proto からコードを自動生成するコマンド
 ※ `gem "grpc-tools"` が必要
 
 ```
@@ -33,3 +33,8 @@ bundle exec grpc_tools_ruby_protoc -I {protoファイルがあるディレクト
 ```
 bundle exec grpc_tools_ruby_protoc -I ../proto --ruby_out=pb --grpc_out=pb ../proto/sample.proto
 ```
+
+## 生成されたコードを require することで使えるようになるもの
+- リクエストを送るためのスタブを生成するクラス
+- サーバーに渡す用のクラス
+- リクエスト・レスポンスに使うメッセージを生成する用のクラス
