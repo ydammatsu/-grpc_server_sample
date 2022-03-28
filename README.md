@@ -15,7 +15,7 @@ bundle exec ruby bin/server.rb
 ├── bin
 │   └── server.rb # 実際に gRPC server を起動するファイル
 ├── lib
-│   ├── file_storage_server.rb # gRPC handler に渡すクラス
+│   ├── file_storage_server.rb # ここにリクエストを処理してレスポンスを生成する部分を書く
 │   └── s3.rb # S3と接続する部分
 └── pb # .proto から自動生成したコードの置き場
     ├── sample_pb.rb

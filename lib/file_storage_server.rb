@@ -11,20 +11,20 @@ class FileStorageServer < Sample::FileStorage::Service
     file_blob = Base64.decode64(request.file_blob)
 
     # S3に画像をアップロード
-    upload_success? = S3.upload(file_name, file_blob)
+    is_upload_success = S3.upload(file_name, file_blob)
 
     # レスポンスを生成
     response = Sample::UploadResponse.new
 
     # レスポンスに値を詰めていく
-    response.error = if upload_success?
-                       puts "#{file_name} のアップロードに成功しました"
-                       :NO_ERROR
-                     else
-                        puts "#{file_name} のアップロードに失敗しました"
-                       :UNKNOWN_ERROR
-                     end
-    # response.created_at = DateTime.now.to_s
+    if is_upload_success
+      puts "#{file_name} のアップロードに成功しました"
+      response.error = :NO_ERROR
+      response.created_at = Time.now
+    else
+      puts "#{file_name} のアップロードに失敗しました"
+      :UNKNOWN_ERROR
+    end
 
     response
   end
