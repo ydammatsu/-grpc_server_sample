@@ -1,6 +1,11 @@
 # grpc_server_sample
 Ruby で書いた勉強用の gRPC Server
 
+## 起動コマンド
+```
+bundle exec ruby bin/server.rb
+```
+
 ## ディレクトリ構成
 ```
 .
