@@ -16,6 +16,7 @@ class FileStorageServer < Sample::FileStorage::Service
                         puts "#{file_name} のアップロードに失敗しました"
                        :UNKNOWN_ERROR
                      end
+    # response.created_at = DateTime.now.to_s
 
     response
   end
