@@ -12,7 +12,7 @@ Ruby で書いた勉強用の gRPC Server
 ├── lib
 │   ├── file_storage_server.rb # gRPC handler に渡すクラス
 │   └── s3.rb # S3と接続する部分
-└── pb # Proto から自動生成したコードの置き場
+└── pb # .proto から自動生成したコードの置き場
     ├── sample_pb.rb
     └── sample_services_pb.rb
 ```
