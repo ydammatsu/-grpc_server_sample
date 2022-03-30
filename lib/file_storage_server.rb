@@ -20,11 +20,22 @@ class FileStorageServer < Sample::FileStorage::Service
     if is_upload_success
       puts "#{file_name} のアップロードに成功しました"
       response.error = :NO_ERROR
+      # enum は文字列を入れるとエラーになる。symbol を入れる
+      # もしくはタグの数字を入れる (例1) Sample::ErrorType::NO_ERROR (例2) 0
+
       response.created_at = Time.now
+      # "2022-03-31 22:22" や DateTime.now を渡すとエラーになる
+      # timestamp は seconds と　nanos を持っているので内部で time.to_f とかを呼んでる?
     else
       puts "#{file_name} のアップロードに失敗しました"
       :UNKNOWN_ERROR
     end
+
+    # インスタンス生成時に値を入れることもできる
+    # response = Sample::UploadResponse.new(
+    #   created_at: Time.now,
+    #   error: :NO_ERROR  
+    # )
 
     response
   end
