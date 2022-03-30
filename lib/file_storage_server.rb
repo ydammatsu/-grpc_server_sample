@@ -28,7 +28,7 @@ class FileStorageServer < Sample::FileStorage::Service
       # timestamp は seconds と　nanos を持っているので内部で time.to_f とかを呼んでる?
     else
       puts "#{file_name} のアップロードに失敗しました"
-      :UNKNOWN_ERROR
+      response.error = :UNKNOWN_ERROR
     end
 
     # インスタンス生成時に値を入れることもできる
