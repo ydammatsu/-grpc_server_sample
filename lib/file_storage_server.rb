@@ -25,7 +25,7 @@ class FileStorageServer < Sample::FileStorage::Service
 
       response.created_at = Time.now
       # "2022-03-31 22:22" や DateTime.now を渡すとエラーになる
-      # timestamp は seconds と　nanos を持っているので内部で time.to_f とかを呼んでる?
+      # timestamp はUNIX時間を持っているので内部で time.to_f とかを呼んでる?
     else
       puts "#{file_name} のアップロードに失敗しました"
       response.error = :UNKNOWN_ERROR
