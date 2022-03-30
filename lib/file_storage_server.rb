@@ -20,7 +20,7 @@ class FileStorageServer < Sample::FileStorage::Service
     if is_upload_success
       puts "#{file_name} のアップロードに成功しました"
       response.error = :NO_ERROR
-      # enum は文字列を入れるとエラーになる。symbol を入れる
+      # enum は文字列を入れるとエラーになるので symbol を入れる
       # もしくはタグの数字を入れる (例1) Sample::ErrorType::NO_ERROR (例2) 0
 
       response.created_at = Time.now
